@@ -13,7 +13,17 @@ jobs:
       - uses: taiki-e/install-action@v2
         with:
           tool: cargo-generate@0.23.14
-      - run: cargo generate --path . --name example-plugin --define macro_crate=false
-      - run: cargo generate --path . --name example-plugin-macros --define macro_crate=true
-      - run: cargo fmt --all --manifest-path example-plugin/Cargo.toml --check
-      - run: cargo fmt --all --manifest-path example-plugin-macros/Cargo.toml --check
+      - name: Generate plugin
+        run: >-
+          cargo generate --path . --destination "$RUNNER_TEMP" --name example-plugin
+          --define macro_crate=false --define upwell_version=0.20.0
+          --define 'upwell_dependency={ version = "0.20", default-features = false, features = ["tooling"] }'
+          --define 'upwell_macros_core_dependency={ version = "0.20", default-features = false }'
+      - name: Generate plugin with macros
+        run: >-
+          cargo generate --path . --destination "$RUNNER_TEMP" --name example-plugin-macros
+          --define macro_crate=true --define upwell_version=0.20.0
+          --define 'upwell_dependency={ version = "0.20", default-features = false, features = ["tooling"] }'
+          --define 'upwell_macros_core_dependency={ version = "0.20", default-features = false }'
+      - run: cargo fmt --all --manifest-path "$RUNNER_TEMP/example-plugin/Cargo.toml" --check
+      - run: cargo fmt --all --manifest-path "$RUNNER_TEMP/example-plugin-macros/Cargo.toml" --check
