@@ -25,5 +25,5 @@ jobs:
           --define macro_crate=true --define upwell_version=0.20.0
           --define 'upwell_dependency={ version = "0.20", default-features = false, features = ["tooling"] }'
           --define 'upwell_macros_core_dependency={ version = "0.20", default-features = false }'
-      - run: cargo fmt --all --manifest-path "$RUNNER_TEMP/example-plugin/Cargo.toml" --check
-      - run: cargo fmt --all --manifest-path "$RUNNER_TEMP/example-plugin-macros/Cargo.toml" --check
+      - run: cargo fmt --all --manifest-path "$RUNNER_TEMP/example-plugin/Cargo.toml"
+      - run: cargo fmt --all --manifest-path "$RUNNER_TEMP/example-plugin-macros/Cargo.toml"

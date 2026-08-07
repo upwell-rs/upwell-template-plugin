@@ -2,8 +2,10 @@
 pub struct GreetingPlugin;
 
 impl upwell::Plugin for GreetingPlugin {
-    const ID: upwell::PluginId =
-        upwell::namespaced_id!(upwell::PluginId, "{{ crate_name }}/plugin");
+    const ID: upwell::PluginId = upwell::namespaced_id!(
+        upwell::PluginId,
+        "{{ crate_name }}/plugin"
+    );
 
     fn contribute(self, contributions: &mut upwell::PluginContributions) {
         contributions.component::<crate::GreetingService>(upwell::namespaced_id!(
